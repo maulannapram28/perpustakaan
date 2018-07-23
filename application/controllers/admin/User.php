@@ -110,6 +110,12 @@ class User extends CI_Controller {
 	}
 
 		public function delete($id_user){
+
+			if($this->session->userdata('username') == "" && $this->session->userdata('akses_level')=="") {
+				$this->session->set_flashdata('sukses', 'silahkan login dahulu');
+				redirect(base_url('login'),'refresh');
+			}
+
 			$data = array( 'id_user'	=> $id_user);
 			$this->user_model->delete($data);
 			$this->session->set_flashdata('sukses', 'data telah dihapus');
